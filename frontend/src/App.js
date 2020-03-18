@@ -1,12 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import logo from './logo.svg';
 import './App.css';
+import fetch from 'node-fetch';
 
 function App () {
     const [message, setMessage] = useState("");
 
     useEffect(() => {
-        fetch('/api/hello')
+        fetch('/api/world', { method: 'POST'})
             .then(response => response.text())
             .then(message => {
                 setMessage(message);
