@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import fetch from "node-fetch";
+import axios from "axios";
 
 function App() {
   const [customers, setCustomers] = useState([]);
@@ -9,10 +9,9 @@ function App() {
 
   // page onLoad
   useEffect(() => {
-    fetch("/api/getAllCustomers")
-      .then(response => response.json())
-      .then(customerList => {
-        setCustomers(Array.from(customerList));
+    axios.get("/api/getAllCustomers")
+      .then(resp => {
+        setCustomers(resp.data);
       });
   }, []);
 
@@ -24,15 +23,12 @@ function App() {
       customerName,
       email
     };
-    fetch("/api/addCustomer", {
-      method: "post",
-      body: JSON.stringify(customer),
-      headers: { "Content-Type": "application/json" },
+    axios.post("/api/addCustomer", customer, {
+      headers: { "Content-Type": "application/json" }
     })
-      .then(response => response.json())
-      .then(customer => {
+      .then(resp => {
         // update customer list
-        setCustomers([...customers, customer]);
+        setCustomers([...customers, resp.data]);
 
         // clean up the form
         setCustomerName("");
