@@ -26,7 +26,7 @@ npm run start
 
 ## Docker
 ```
-docker build -t springbootapp.
+docker build -t springbootapp .
 docker run -p 8080:8080 -t springbootapp
 ```
 
