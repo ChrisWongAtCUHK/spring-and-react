@@ -29,3 +29,14 @@ SELECT * FROM BOOK ;
 ```
 curl localhost:8080/api/books
 ```
+
+## Test the api
+```
+curl localhost:8080/api/getAllCustomers
+curl -X POST localhost:8080/api/addCustomer -d '{"customerName": "Foo", "email": "bar"}'
+curl -X POST -H "Content-type: application/json" localhost:8080/api/addCustomer -d '{"customerName": "Foo", "email": "bar"}'
+curl localhost:8080/api/getAllCustomers
+curl -X PUT -H "Content-type: application/json" localhost:8080/api/addCustomer -d '{"id":1, "customerName": "Hello", "email": "bar"}'
+curl -X DELETE -H "Content-type: application/json" localhost:8080/api/deleteCustomer -d '{"id":1}'
+curl -X DELETE -H "Content-type: application/json" localhost:8080/api/deleteCustomer/1
+```
