@@ -30,18 +30,6 @@ docker build -t springbootapp .
 docker run -p 8080:8080 -t springbootapp
 ```
 
-## Heroku
-application.properties
-```
-server.port=${PORT}
-```
-```
-heroku container:login
-heroku create 
-heroku container:push web
-heroku container:release web
-```
-
 ## H2 Database
 http://localhost:8080/h2-console/
 ```
