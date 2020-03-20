@@ -67,6 +67,20 @@ function App() {
       });
   };
 
+  // delete customer
+  const deleteCustomer = (customerId) => {
+    axios.delete(`/api/deleteCustomer/${customerId}`)
+      .then(() => {
+        // update customer list
+        setCustomers(customers.filter(customer => customer.id !== customerId));
+  
+        // clean up the form
+        setCustomerName("");
+        setEmail("");
+        setId(-1);
+      });
+  };
+
   return (
     <div>
       <h1>Customer Mart</h1>
@@ -114,6 +128,7 @@ function App() {
                   <td>{customer.email}</td>
                   <td>
                     <a onClick={() => editCustomer(customer.id)} className="blue-button">Edit</a>
+                    | <a onClick={() => deleteCustomer(customer.id)} className="blue-button">Delete</a>
                   </td>
                 </tr>
               );
