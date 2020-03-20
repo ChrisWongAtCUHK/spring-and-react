@@ -1,6 +1,7 @@
 package com.example.springandreact.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -8,7 +9,6 @@ import com.example.springandreact.models.Customer;
 import com.example.springandreact.repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 
 @Service("customerService")
 public class CustomerService {
@@ -22,8 +22,8 @@ public class CustomerService {
 	}
 
 	@Transactional
-	public Customer getCustomer(Long id) {
-		return customerRepository.getOne(id);
+	public Optional<Customer> getCustomer(Long id) {
+		return customerRepository.findById(id);
 	}
 
 	@Transactional

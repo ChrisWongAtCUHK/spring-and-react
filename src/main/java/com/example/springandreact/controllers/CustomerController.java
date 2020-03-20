@@ -1,6 +1,7 @@
 package com.example.springandreact.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.example.springandreact.models.Customer;
 import com.example.springandreact.services.CustomerService;
@@ -26,9 +27,10 @@ public class CustomerController {
 		model.addAttribute("listOfCustomers", listOfCustomers);
 		return listOfCustomers;
 	}
+
 	@RequestMapping(value = "/api/getCustomer/{id}", method = RequestMethod.GET, headers = "Accept=application/json")
-	public void getCustomerById(@PathVariable Long id) {
-		customerService.getCustomer(id);
+	public Optional<Customer> getCustomerById(@PathVariable Long id) {
+		return customerService.getCustomer(id);
 	}
 
 	@RequestMapping(value = "/api/addCustomer", method = RequestMethod.POST, headers = "Accept=application/json")

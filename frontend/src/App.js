@@ -6,6 +6,8 @@ function App() {
   const [customers, setCustomers] = useState([]);
   const [customerName, setCustomerName] = useState("");
   const [email, setEmail] = useState("");
+  const [id, setId] = useState(-1);
+  
 
   // page onLoad
   useEffect(() => {
@@ -23,16 +25,45 @@ function App() {
       customerName,
       email
     };
-    axios.post("/api/addCustomer", customer, {
-      headers: { "Content-Type": "application/json" }
-    })
-      .then(resp => {
-        // update customer list
-        setCustomers([...customers, resp.data]);
+    if(id === -1) {
+      // add
+      axios.post("/api/addCustomer", customer, {
+        headers: { "Content-Type": "application/json" }
+      })
+        .then(resp => {
+          // update customer list
+          setCustomers([...customers, resp.data]);
+  
+          // clean up the form
+          setCustomerName("");
+          setEmail("");
+        });
+    } else {
+      // update
+      customer.id = id;
+      axios.put("/api/addCustomer", customer, {
+        headers: { "Content-Type": "application/json" }
+      })
+        .then(resp => {
+          // update customer list
+          setCustomers(customers.map(customer => customer.id === resp.data.id ? resp.data : customer));
+  
+          // clean up the form
+          setCustomerName("");
+          setEmail("");
+          setId(-1);
+        });
+    }
+  };
 
-        // clean up the form
-        setCustomerName("");
-        setEmail("");
+  // edit customer
+  const editCustomer = (customerId) => {
+    axios.get(`/api/getCustomer/${customerId}`)
+      .then(resp => {
+        const { id, customerName, email } = resp.data;
+        setCustomerName(customerName);
+        setEmail(email);
+        setId(id);
       });
   };
 
@@ -81,6 +112,9 @@ function App() {
                 <tr key={customer.id}>
                   <td>{customer.customerName}</td>
                   <td>{customer.email}</td>
+                  <td>
+                    <a onClick={() => editCustomer(customer.id)} className="blue-button">Edit</a>
+                  </td>
                 </tr>
               );
             })
