@@ -9,19 +9,9 @@ In frontend/ folder
 npm run build
 ```
 
-## How to run
+## Build jar with ReactJS
 ```
 mvn clean install
-java -jar target/spring-and-react-0.0.1-SNAPSHOT.jar
-```
-
-## Dev
-```
-mvn spring-boot:run
-```
-In frontend/ folder
-```
-npm run start
 ```
 
 ## Docker
